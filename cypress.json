@@ -1,1 +1,32 @@
-{}
+{
+    "viewportWidth": 1920,
+    "viewportHeight": 1080,
+    "requestTimeout": 30000,
+    "responseTimeout": 30000,
+    "defaultCommandTimeout": 30000,
+    "numTestsKeptInMemory": 2,
+    "baseUrl": "http://192.168.99.100:8000",
+    "env": {
+      "coverage": false
+    },
+    "requestBaseUrl": "http://192.168.99.100:8000",
+    "reporter": "mochawesome",
+    "reporterOptions": {
+      "reportDir": "cypress/results",
+      "overwrite": false,
+      "html": false,
+      "json": true,
+      "timestamp": "mmddyyyy_HHMMss",
+      "showSkipped": true,
+      "charts": true
+    },
+    "screenshotsFolder": "cypress/results/assets",
+    "videosFolder": "cypress/results/assets/videos",
+    "watchForFileChanges": false,
+    "chromeWebSecurity": false,
+    "video": true,
+    "projectId": "test",
+    "videoCompression": false,
+    "videoUploadOnPasses": false
+  }
+  
