@@ -3,7 +3,7 @@
 describe('Test Playground account creation',()=> {
     it('create a valid account', () =>{
         cy.visit('/')
-        cy.get('a').contains("Account details").click()
+        cy.get('[href*="my-account/edit-account"]').click()
         cy.get('#username').type('Camilo')
         cy.get('#reg_email').type('test@gmail.com')
         cy.get('#password').type('test123')
@@ -11,10 +11,12 @@ describe('Test Playground account creation',()=> {
     })
 })
 
+
+
 describe('Test Playground Login',()=> {
     it('login with a valid account', () =>{
         cy.visit('/')
-        cy.get('a').contains("Account details").click()
+        cy.contains('Account details').click()
         cy.get('#username').type('Camilo')
         cy.get('#reg_email').type('test@gmail.com')
         cy.get('#password').type('test123')
