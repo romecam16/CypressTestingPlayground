@@ -1,7 +1,7 @@
 /// <reference types='Cypress' />
 
 import {endpoints} from '../support/endpoints.js';
-import {users} from 'C:/Users/Camilo Romero/Documents/Personal/Cypress/CypressTestingPlayground/cypress/support/users.js'
+import {users} from '../support/users.js'
 
 describe('test playground user creation', () =>{
     it('should create a new user', function() {
@@ -9,12 +9,11 @@ describe('test playground user creation', () =>{
            method: 'POST', 
            url: endpoints.user, 
            auth: {
-                username: 'automation',
-                password: 'automation'},
+                username: Cypress.env('WP_USERNAME'),
+                password: Cypress.env('WP_PASSWORD')
+           },
            body:users.user    
-        }).as('create_user')
-        
-        cy.get('@create_user').should((response) => {
+        }).should((response) => {
             expect(response.status).to.eq(201)
             expect(response.body).to.have.property('username', users.user.username)
             expect(response.body).to.have.property('name', users.user.first_name + ' ' + users.user.last_name)
@@ -27,13 +26,12 @@ describe('test playground user creation', () =>{
            method: 'POST', 
            url: endpoints.user, 
            auth: {
-                username: 'automation',
-                password: 'automation'},
+                username: Cypress.env('WP_USERNAME'),
+                password: Cypress.env('WP_PASSWORD')
+           },
            body:users.user,
            failOnStatusCode: false
-        }).as('create_existing_user')
-        
-        cy.get('@create_existing_user').should((response) => {
+        }).should((response) => {
             expect(response.status).to.eq(500)
             expect(response.body).to.have.property('code', 'existing_user_login')
             expect(response.body).to.have.property('message', 'Sorry, that username already exists!')
@@ -45,13 +43,12 @@ describe('test playground user creation', () =>{
            method: 'POST', 
            url: endpoints.user, 
            auth: {
-                username: 'automation',
-                password: 'automation'},
+                username: Cypress.env('WP_USERNAME'),
+                password: Cypress.env('WP_PASSWORD')
+           },
            body:users.user_with_no_username,
            failOnStatusCode: false
-        }).as('user_with_no_username')
-        
-        cy.get('@user_with_no_username').should((response) => {
+        }).should((response) => {
             expect(response.status).to.eq(400)
             expect(response.body).to.have.property('code', 'rest_missing_callback_param')
             expect(response.body).to.have.property('message', 'Missing parameter(s): username')
@@ -63,13 +60,12 @@ describe('test playground user creation', () =>{
            method: 'POST', 
            url: endpoints.user, 
            auth: {
-                username: 'automation',
-                password: 'automation'},
+                username: Cypress.env('WP_USERNAME'),
+                password: Cypress.env('WP_PASSWORD')
+           },
            body:users.user_with_no_password,
            failOnStatusCode: false
-        }).as('user_with_no_password')
-        
-        cy.get('@user_with_no_password').should((response) => {
+        }).should((response) => {
             expect(response.status).to.eq(400)
             expect(response.body).to.have.property('code', 'rest_missing_callback_param')
             expect(response.body).to.have.property('message', 'Missing parameter(s): password')
@@ -81,13 +77,12 @@ describe('test playground user creation', () =>{
            method: 'POST', 
            url: endpoints.user, 
            auth: {
-                username: 'automation',
-                password: 'automation'},
+                username: Cypress.env('WP_USERNAME'),
+                password: Cypress.env('WP_PASSWORD')
+           },
            body:users.user_with_no_email,
            failOnStatusCode: false
-        }).as('user_with_no_email')
-        
-        cy.get('@user_with_no_email').should((response) => {
+        }).should((response) => {
             expect(response.status).to.eq(400)
             expect(response.body).to.have.property('code', 'rest_missing_callback_param')
             expect(response.body).to.have.property('message', 'Missing parameter(s): email')
@@ -100,9 +95,7 @@ describe('test playground user creation', () =>{
            url: endpoints.user, 
            body:users.user,    
            failOnStatusCode: false
-        }).as('create_user')
-        
-        cy.get('@create_user').should((response) => {
+        }).should((response) => {
             expect(response.status).to.eq(401)
             expect(response.body).to.have.property('message', 'Sorry, you are not allowed to create new users.')
             expect(response.body).to.have.property('code', 'rest_cannot_create_user')
@@ -114,13 +107,13 @@ describe('test playground user creation', () =>{
             method: 'DELETE', 
             url: `${endpoints.user}${this.id}?reassign=false&force=true`, 
             auth: {
-                 username: 'automation',
-                 password: 'automation'},
-        }).as('delete_user')
-
-        cy.get('@delete_user').should((response) => {
+                username: Cypress.env('WP_USERNAME'),
+                password: Cypress.env('WP_PASSWORD')
+            }
+        }).should((response) => {
             expect(response.status).to.eq(200)
             expect(response.body).to.have.property('deleted', true)
+            expect(response.body.previous).to.have.property('id', this.id)
         })
     })
 })

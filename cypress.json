@@ -5,11 +5,11 @@
     "responseTimeout": 30000,
     "defaultCommandTimeout": 30000,
     "numTestsKeptInMemory": 2,
-    "baseUrl": "http://192.168.99.100:8000",
+    "baseUrl": "http://192.168.99.101:8000",
     "env": {
       "coverage": false
     },
-    "requestBaseUrl": "http://192.168.99.100:8000",
+    "requestBaseUrl": "http://192.168.99.101:8000",
     "reporter": "mochawesome",
     "reporterOptions": {
       "reportDir": "cypress/results",
